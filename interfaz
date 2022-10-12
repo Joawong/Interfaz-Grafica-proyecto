@@ -1,0 +1,108 @@
+import tkinter as tk
+from tkinter import ttk
+import tkinter
+import csv
+#método para leer datos de un archivo
+def csv_read(file, csv_rows):
+    try:
+        with open(file, mode="r") as csv_file:
+            csv_reader = csv.reader(csv_file, delimiter=";")
+            for scoped_row in csv_reader:
+                csv_rows.append(scoped_row)
+    except(AttributeError, TypeError, AssertionError):
+        raise AssertionError("Variables no cuenta con el tipo de dato esperado!!!")
+#método para escribir cosas en un archivo
+def csv_write(file, csv_raws):
+    try:
+        with open(file, mode= "m") as csv_file:
+            csv_writer = csv.writer(csv_file, delimiter=";", quotechar='"', quoting=csv.QUOTE_MINIMAL)
+            for scoped_row in csv_rows:
+                csv_writer.writerow(scoped_row)
+    except(AttributeError, TypeError, AssertionError):
+        raise AssertionError("Variables no cuentan con el tipo de dato esperado!!!")
+                
+
+#creación ventanas y con un botón para cerrar
+class Window(tk.Toplevel):
+    def __init__(self, parent):
+        super().__init__(parent)
+
+        self.geometry('300x100')
+        self.title('Toplevel Window')
+
+        ttk.Button(self,
+                text='Close',
+                command=self.destroy).pack(expand=True)
+#ventana ventas y botones para cerrar
+class ventanaVentas(tk.Toplevel):
+    def __init__(self, parent):
+        super().__init__(parent)
+
+        self.geometry('300x100')
+        self.title('Ventana de ventas')
+        ttk.Button(self,
+                text='número de venta',
+                command=self.destroy).pack(expand=True)
+        
+        boton_ventas = ttk.Button(self, text = "Cerrar", command=self.destroy).pack(expand=True)
+        
+        #consultar ventas en el sistema
+        ttk.Button(self,
+                text='Consultar ventas registradas',).pack(expand=True)
+        #numero de venta
+        ttk.Button(self,
+                text='Cerrar',
+                command=self.destroy).pack(expand=True)
+        #despliegue de textos
+        ttk.Label (self).pack()
+        #input boxes
+        
+        
+        
+class App(tk.Tk):
+    def __init__(self):
+        super().__init__()
+
+        self.geometry('300x200')
+        self.title('Main Window')
+
+        #place a button on the root window
+        ttk.Button(self,
+                text='Open a window',
+                command=self.open_window).pack(expand=True)
+        #Botón de empleados
+        boton_empleados = ttk.Button(self, text = "Módulo de empleados", command=self.open_window)
+        boton_empleados.pack(expand=True)
+
+        #Botón de clientes
+        boton_clientes = ttk.Button(self, text = "Módulo de clientes", command=self.open_window)
+        boton_clientes.pack(expand=True)
+
+
+        #Botón de proveedores
+        boton_proveedores =ttk.Button(self, text = "Módulo de proveedores", command=self.open_window)
+        boton_proveedores.pack(expand=True)
+
+
+        #Botón de productos
+        boton_productos =ttk.Button(self, text = "Módulo de productos", command=self.open_window)
+        boton_productos.pack(expand=True)
+
+        #Botón de ventas
+        boton_ventas = ttk.Button(self, text = "Módulo de ventas", command=self.open_ventas)
+        boton_ventas.pack(expand=True)
+
+    def open_(self):
+        nueva_ventana_ventas = ventanaVentas(self)
+        nueva_ventana_ventas.grab_set()
+    #creación del método  para crear la ventana de ventas
+    def open_ventas(self):
+        nueva_ventana_ventas = ventanaVentas(self)
+        nueva_ventana_ventas.grab_set()
+    #creanción de la función para hacer una ventana
+    def open_window(self):
+        window = Window(self)
+        window.grab_set()
+        
+app = App()
+app.mainloop()
