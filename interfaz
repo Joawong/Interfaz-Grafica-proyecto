@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
-import tkinter
 import csv
+
 #método para leer datos de un archivo
 def csv_read(file, csv_rows):
     try:
@@ -20,7 +20,30 @@ def csv_write(file, csv_raws):
                 csv_writer.writerow(scoped_row)
     except(AttributeError, TypeError, AssertionError):
         raise AssertionError("Variables no cuentan con el tipo de dato esperado!!!")
-                
+"""
+#iniciando al usuario
+def draw_screen(master):
+    # Grids init
+    frm = ttk.Frame(master, padding=20)
+    frm.grid()
+    msg_frm = ttk.Frame(frm, padding=10)
+    msg_frm.grid()
+    data_frm = ttk.Frame(frm, padding=10)
+    data_frm.grid()
+    btn_frm = ttk.Frame(frm, padding=10)
+    btn_frm.grid()
+
+    # Entries init
+    scoped_user = ttk.Entry(data_frm)
+    scoped_password = ttk.Entry(data_frm)
+
+    # Gui
+    ttk.Label(msg_frm, text="Por favor ingrese credenciales").grid(column=0, row=0)
+    ttk.Label(data_frm, text="Usuario: ", justify="left").grid(column=0, row=1)
+    scoped_user.grid(column=2, row=1)
+    ttk.Label(data_frm, text="Clave: ", justify="left").grid(column=0, row=2)
+    scoped_password.grid(column=2, row=2)
+"""               
 
 #creación ventanas y con un botón para cerrar
 class Window(tk.Toplevel):
@@ -31,8 +54,55 @@ class Window(tk.Toplevel):
         self.title('Toplevel Window')
 
         ttk.Button(self,
-                text='Close',
+                text='Cerrar',
                 command=self.destroy).pack(expand=True)
+#ventana de empleados
+class ventanaEmpleados(tk.Toplevel):
+    def __init__(self, parent):
+        super().__init__(parent)
+
+        self.geometry('300x100')
+        self.title('Módulo de empleados')
+
+        ttk.Button(self,
+                text='Cerrar',
+                command=self.destroy).pack(expand=True)
+#ventana de clientes
+class ventanaClientes(tk.Toplevel):
+    def __init__(self, parent):
+        super().__init__(parent)
+
+        self.geometry('300x100')
+        self.title('Módulo de clientes')
+
+        ttk.Button(self,
+                text='Cerrar',
+                command=self.destroy).pack(expand=True)
+        
+        
+#ventana de proovedores
+class ventanaProvedores(tk.Toplevel):
+    def __init__(self, parent):
+        super().__init__(parent)
+
+        self.geometry('300x100')
+        self.title('Módulo de proovedores')
+
+        ttk.Button(self,
+                text='Cerrar',
+                command=self.destroy).pack(expand=True)
+#ventana de productos
+class ventanaProductos(tk.Toplevel):
+    def __init__(self, parent):
+        super().__init__(parent)
+
+        self.geometry('300x100')
+        self.title('Módulo de productos ')
+
+        ttk.Button(self,
+                text='Cerrar',
+                command=self.destroy).pack(expand=True)
+
 #ventana ventas y botones para cerrar
 class ventanaVentas(tk.Toplevel):
     def __init__(self, parent):
@@ -63,43 +133,47 @@ class App(tk.Tk):
     def __init__(self):
         super().__init__()
 
-        self.geometry('300x200')
-        self.title('Main Window')
-
-        #place a button on the root window
-        ttk.Button(self,
-                text='Open a window',
-                command=self.open_window).pack(expand=True)
+        self.geometry('500x300')
+        self.title('Ventana principal')
         #Botón de empleados
-        boton_empleados = ttk.Button(self, text = "Módulo de empleados", command=self.open_window)
+        boton_empleados = ttk.Button(self, text = "Módulo de empleados", command=self.open_empleados)
         boton_empleados.pack(expand=True)
 
         #Botón de clientes
-        boton_clientes = ttk.Button(self, text = "Módulo de clientes", command=self.open_window)
+        boton_clientes = ttk.Button(self, text = "Módulo de clientes", command=self.open_clientes)
         boton_clientes.pack(expand=True)
 
 
         #Botón de proveedores
-        boton_proveedores =ttk.Button(self, text = "Módulo de proveedores", command=self.open_window)
+        boton_proveedores =ttk.Button(self, text = "Módulo de proveedores", command=self.open_provedores)
         boton_proveedores.pack(expand=True)
 
 
         #Botón de productos
-        boton_productos =ttk.Button(self, text = "Módulo de productos", command=self.open_window)
+        boton_productos =ttk.Button(self, text = "Módulo de productos", command=self.open_productos)
         boton_productos.pack(expand=True)
 
         #Botón de ventas
         boton_ventas = ttk.Button(self, text = "Módulo de ventas", command=self.open_ventas)
         boton_ventas.pack(expand=True)
 
-    def open_(self):
-        nueva_ventana_ventas = ventanaVentas(self)
-        nueva_ventana_ventas.grab_set()
+    #funciones para abrir las ventanas
+    def open_empleados(self):
+        nueva_ventana_empleados = ventanaEmpleados(self)
+        nueva_ventana_empleados.grab_set()
+    def open_clientes(self):
+        nueva_ventana_clientes = ventanaClientes(self)
+        nueva_ventana_clientes.grab_set()
+    def open_provedores(self):
+        nueva_ventana_provedores = ventanaProvedores(self)
+        nueva_ventana_provedores.grab_set()
+    def open_productos(self):
+        nueva_ventana_productos = ventanaProductos(self)
+        nueva_ventana_productos.grab_set()
     #creación del método  para crear la ventana de ventas
     def open_ventas(self):
         nueva_ventana_ventas = ventanaVentas(self)
         nueva_ventana_ventas.grab_set()
-    #creanción de la función para hacer una ventana
     def open_window(self):
         window = Window(self)
         window.grab_set()
